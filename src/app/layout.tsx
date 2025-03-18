@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/lib/utils'
 import { INTER, IBM_PLEX_MONO } from '@/lib/font'
-import { RThemeProvider } from '@/components/providers'
+import { RThemeProvider, JWTProvider } from '@/components/providers'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 
 import './globals.css'
@@ -18,11 +18,13 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang='en' suppressHydrationWarning>
-            <body className={cn(INTER.className, IBM_PLEX_MONO.variable)}>
-                <TailwindIndicator />
-                <RThemeProvider>{children}</RThemeProvider>
-            </body>
-        </html>
+        <JWTProvider>
+            <html lang='en' suppressHydrationWarning>
+                <body className={cn(INTER.className, IBM_PLEX_MONO.variable)}>
+                    <TailwindIndicator />
+                    <RThemeProvider>{children}</RThemeProvider>
+                </body>
+            </html>
+        </JWTProvider>
     )
 }

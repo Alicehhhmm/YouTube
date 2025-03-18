@@ -11,6 +11,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { useJWTAuth } from '@/hooks'
 
 // Menu items.
 const items = [
@@ -34,6 +35,8 @@ const items = [
 ]
 
 export const PersonalSection = () => {
+    const { openSignIn, isSignedIn } = useJWTAuth()
+
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -44,7 +47,12 @@ export const PersonalSection = () => {
                             <SidebarMenuButton
                                 tooltip={item.title}
                                 isActive={false} // TODO: chang to look at current pathname
-                                onClick={() => {}} //TODO: do something on click
+                                onClick={e => {
+                                    if (!isSignedIn && item?.auth) {
+                                        e.preventDefault()
+                                        openSignIn()
+                                    }
+                                }}
                                 asChild
                             >
                                 <Link href={item.url} className='flex items-center gap-4'>
