@@ -16,3 +16,23 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
 NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
 ```
+
+> 数据库服务端地址配置
+
+```env
+DATABASE_URL='postgresql://your_nextjs_neondb_url'
+```
+
+# DataBase command
+
+-   [pnpm neno dcos](https://orm.drizzle.team/docs/kit-overview)
+
+```shell
+pnpm drizzle-kit generate
+pnpm drizzle-kit migrate
+pnpm drizzle-kit push
+pnpm drizzle-kit pull
+pnpm drizzle-kit check
+pnpm drizzle-kit up
+pnpm drizzle-kit studio
+```
