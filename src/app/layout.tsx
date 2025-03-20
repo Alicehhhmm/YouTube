@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { cn } from '@/lib/utils'
 import { INTER, IBM_PLEX_MONO } from '@/lib/font'
-import { RThemeProvider, JWTProvider } from '@/components/providers'
+import { RThemeProvider, JWTProvider, TRPCProvider } from '@/components/providers'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 
 import './globals.css'
@@ -22,7 +22,9 @@ export default function RootLayout({
             <html lang='en' suppressHydrationWarning>
                 <body className={cn(INTER.className, IBM_PLEX_MONO.variable)}>
                     <TailwindIndicator />
-                    <RThemeProvider>{children}</RThemeProvider>
+                    <RThemeProvider>
+                        <TRPCProvider>{children}</TRPCProvider>
+                    </RThemeProvider>
                 </body>
             </html>
         </JWTProvider>
