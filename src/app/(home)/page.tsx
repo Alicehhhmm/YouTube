@@ -1,24 +1,27 @@
-import { Suspense } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
 import { HydrateClient, prefetch, trpc } from '@/trpc/server'
-import { ClientGreeting } from './client-greeting'
+import { HomeViews } from '@/views/home'
 
-export default async function Home() {
-    prefetch(
-        trpc.hello.queryOptions({
-            text: '11111',
-        })
-    )
+interface HomePageProps {
+    searchParams: Promise<{
+        categoryId?: string
+    }>
+}
+
+const HomePage = async ({ searchParams }: HomePageProps) => {
+    const { categoryId } = await searchParams
+
+    prefetch(trpc.categories.getMany.queryOptions())
 
     return (
         <HydrateClient>
-            <div className='flex items-center justify-center bg-amber-100'>home page video </div>
-            <ErrorBoundary fallback={<p>Something went wrong</p>}>
-                <Suspense fallback={<p>Loading...</p>}>
-                    <div>Suspense center...</div>
-                    <ClientGreeting />
-                </Suspense>
-            </ErrorBoundary>
+            <HomeViews categoryId={categoryId} />
         </HydrateClient>
     )
 }
+
+/**
+ * @see https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+ */
+export const dynamic = 'force-dynamic'
+
+export default HomePage
